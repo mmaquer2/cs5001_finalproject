@@ -1,0 +1,102 @@
+Michael Maquera
+CS 5001 Fall 2020
+Final Project
+design.txt
+
+****READ ME****
+How to play:
+Go to the driver.py file and run the main function, the player will be promted to enter their name,
+and the number of cards they would like to play with (8, 10, or 12). Afterwards the game ui will load based on the
+players input, along with previous winning scores, a quit button, and the current game session's scoreboard.
+To exit the game the player may quit the quit button on the turtle canvas. 
+The game is played in "turns", when a player selects two cards in order this is considered a turn.
+If a pair of cards is selected uncorrectly nothing happens, if a match is found. the matching pair is hidden.
+Once all matching pairs are found the game is over, the current players score is recorded. 
+
+
+How the Game Works:
+Once the user input is entered into the turtle input boxes, it is passed into a instance of the Game class.
+Then a layout of cards placed faced down is placed onto the turtle canvas. the previous high scores are loaded from 
+the scores.txt file included in the project file. Along with a quit button. and a scoreboard showing the current player's 
+correct matches and guesses. The game ui is loaded from the game_ui file, while the classes are loaded from the game_logic file. 
+when a player clicks onto a card the click is registered by a function click, that has divided the playing canvas into sections not
+player, based on the 'number box' that is clicked a card is fipped over and reavled to the player. The player can then select another card
+from the board to find out whether or not it is a match. The clicks are stored by a list, once two clicks are registered into that list
+the game class does a check to see if the value of the cards are equal based on the reference to the original box number. if they are equal 
+they are hidden from the game by placing a white square over the card and are removed from the game_layout list so they cannot be clicked or used 
+again by the player. Then a correct point is added to the scoreboard, this continues until all matches are found. Once all matches are found 
+the game canvas is cleared to display the players' final score where it is saved to the scores.txt file. 
+
+
+
+Classes:
+
+PlayingCard -- is a instance of a turtle class that is used to create all of the
+game cards, to enable the proper placement and flipping of the cards when clicked
+
+Game -- preforms activies for the game logic outside of the game UI, such as handling the current score of the game,
+processing whether or not card matches are equal.
+
+
+Functions:
+
+setup_command -- collects input for the players name and their requested number of cards
+play_game -- the function that launches the game instance
+build_game_ui -- calls the functions required to build the game interface
+create_layout -- creates a board that allows the cards to be placed with proper spacing
+add_cards -- places the number of face down cards as entered by the user
+write_leaders -- writes the leaders onto the turtle canvas, as read from the scores.txt file 
+score_board -- writes where the players number of correct matches and guesses is recorded
+quit_button -- places the quit button gif onto the canvas and calls the quit function if clicked
+click -- registers the users clicks during the game whether on a card or the quit button
+
+
+Classes -- 
+    class Game:
+    Methods:
+    layout, stores the seperate 8,10, 12 card layouts a player can choose
+    draw_correctpts -- writes the current number of correct gueses on the turtle canvas
+    add_correct, add a correct point to the object instance every time there a matching pair is found
+    add_guess, add a guess point to the object instance every time there is a pair selected
+    draw_guesspts,  writes the current number of guesses onto the game canvas
+    store_coors, stores the x,y coordintes of the player clicks on the canvas board
+    remove_coors, removes the x,y coodriantes of the player if a turn is not a match
+    hide_cards, places a white square over matching cards so they are no longer in play
+    remove_matchng_pair, removes matching cards from the card layout list that have been found by the player
+    compare_cards,compare two cards that comprises of a "turn" in the game
+    player_turn, checks to see if two clicks of the player have been made on two seperate cards
+    update_leader_board, adds the recent players score onto the scores.txt file
+    sort_leader_scores, sorts the players and their scores from highest to lowest
+    game_won, display the winning player's game score once all matches have been found
+    display_game_progress, displays all of the current values of the game object
+
+    class PlayingCard:
+    Methods:
+    compare, compares the values of two cards to deteremine if they are equal
+    place_card, places cards onto the game canvas
+    store_box_number, stores the box number of the cards location on the canvas
+
+
+
+Data structures:
+
+Classes -- Game and PlayingCard class as described above
+
+Objects -- each game is an instance of the game class, and each playing card is an instance of the PlayingCard class
+Lists -- lists were used in several cases such as holding the card formats for where the playingcard would be placed on each
+layout type, and temporaily holding data to be examined based on the current state of the game. Such as when deciding whether two cards
+are matching pairs. 
+
+
+Other files:
+scores.txt -- is a text file containing the winning players and their scores, this file is read and rewritten at the start and end of every game
+
+
+Summary of Testing:
+
+-The testing of the program was utilzied a combination of the unit test module and manual testing,
+enursing all of the fucnctions worked correctly based on the proper data type inputs/outputs. 
+-The unit test module handled the testing of  funcitons that required calculations such as adding scores and comparing
+two different cards.
+-manual testing was a also done to ensure the different 8,10, and 12 game types were working correclty, 
+and simliar results were occuring accross the game types and bugs were addressed before shipping the final project.
